@@ -2,7 +2,7 @@ const express = require("express");
 const http = require("http");
 const WebSocket = require("ws");
 const crypto = require("crypto");
-
+const path = require("path");
 
 const Engine = require("./GameEngine");
 const Score = require("./Scoring");
@@ -12,7 +12,9 @@ const Solitaire = require("./Solitaire");
 const app = express();
 
 app.use(
-express.static("../client")
+express.static(
+path.join(__dirname,"../client")
+)
 );
 
 
