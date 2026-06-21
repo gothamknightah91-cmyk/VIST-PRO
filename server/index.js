@@ -338,7 +338,7 @@ wss.on(
 "connection",
 
 (ws)=>{
-
+console.log("PLAYER CONNECTED");
 // HEARTBEAT
 ws.lastChat = 0;
 ws.alive = true;
