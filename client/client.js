@@ -60,7 +60,7 @@ function connect(callback){
 
 
 ws=new WebSocket(
-"wss://card-game-server-71ec.onrender.com"
+"wss://card-game-server-y42.onrender.com"
 );
 
 
