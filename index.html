@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <title>♠ Вист Онлайн ♠</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== ВХОД / ЛОБИ ===== -->
+<div id="login">
+  <h1>♠ Вист Онлайн ♠</h1>
+
+  <input id="name" placeholder="Име">
+  <input id="room" placeholder="Код на стая">
+
+  <button id="createRoomBtn">Създай стая</button>
+  <button id="joinBtn">Влез</button>
+
+  <div id="lobbyStatus"></div>
+</div>
+
+<!-- ===== ИГРА ===== -->
+<div id="game" class="hidden">
+
+  <!-- ТОП ЛЕНТА -->
+  <div id="top-bar">
+    <div id="status">Игра</div>
+    <div id="turn">Ред</div>
+  </div>
+
+  <!-- ПРОТИВНИЦИ -->
+  <div id="opponent-top" class="opponent horizontal"></div>
+  <div id="opponent-left" class="opponent vertical"></div>
+  <div id="opponent-right" class="opponent vertical"></div>
+
+  <!-- МАСА -->
+  <div id="table"></div>
+
+  <!-- МОЯТА РЪКА -->
+  <div id="hand"></div>
+
+  <!-- ИЗБОР НА КОЗ -->
+  <div id="trumps" class="hidden">
+    <button onclick="chooseTrump('♠')">♠</button>
+    <button onclick="chooseTrump('♥')">♥</button>
+    <button onclick="chooseTrump('♦')">♦</button>
+    <button onclick="chooseTrump('♣')">♣</button>
+  </div>
+
+  <!-- ЧАТ -->
+  <div id="chat">
+    <div id="scores" class="scores-box"></div>
+    <div id="messages"></div>
+
+    <div class="chat-input">
+      <input id="msg" placeholder="Съобщение">
+      <button id="sendBtn">Изпрати</button>
+    </div>
+  </div>
+
+</div> <!-- КРАЙ НА #game -->
+
+<script src="client.js"></script>
+</body>
+</html>

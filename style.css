@@ -1,0 +1,229 @@
+* {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at center, #1e6b2f 0%, #0b3d19 70%);
+  font-family: Arial, sans-serif;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ===== LOGIN ===== */
+#login {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #1e6b2f 0%, #0b3d19 70%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  z-index: 9999;
+}
+
+/* ===== GAME ===== */
+#game {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ===== TOP INFO ===== */
+/* 🔴 КОЯ ИГРА */
+#status {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-120%);
+  background: rgba(0,0,0,0.65);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  z-index: 40;
+}
+
+/* 🟡 НА ХОД Е */
+#turn {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(20%);
+  background: rgba(0,0,0,0.65);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  z-index: 40;
+}
+
+/* ===== SCORES ===== */
+#scores {
+  position: absolute;
+  top: 14px;
+  right: 30px;
+  background: rgba(0,0,0,0.6);
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  z-index: 40;
+}
+
+/* ===== TABLE (СРЕДАТА) ===== */
+#table {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 24px;
+  min-height: 160px;
+  z-index: 20;
+}
+
+/* ===== КАРТИ (ОБЩИ) ===== */
+.card img {
+  width: 90px;
+  height: auto;
+  border-radius: 8px;
+  background: white;
+  padding: 4px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.6);
+  opacity: 1 !important;
+  filter: none !important;
+  background: white !important;
+}
+
+/* ===== КАРТИТЕ В ТВОЯТА РЪКА ===== */
+#hand .card {
+  background: white;
+  border-radius: 8px;
+}
+
+
+/* hover САМО за твоята ръка */
+#hand .card img {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+#hand .card img:hover {
+  transform: translateY(-14px);
+}
+
+/* ===== ТВОЯТА РЪКА ===== */
+#hand {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 50;
+}
+
+/* ===== ♠ ♥ ♣ ♦ ИЗБОР НА КОЗА (СИНЬО) ===== */
+#trumps {
+  position: absolute;
+  bottom: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  z-index: 80;
+}
+#trumps.hidden {
+  display: none;
+}
+
+#trumps button {
+  font-size: 26px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: white;
+  color: black;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+#trumps button:hover {
+  transform: scale(1.15);
+}
+
+/* ===== ПРОТИВНИЦИ ===== */
+.opponent {
+  position: absolute;
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.back-card img {
+  width: 72px;
+  height: auto;
+  border-radius: 6px;
+  background: white;
+  padding: 3px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+/* горе */
+#opponent-top {
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ляво */
+#opponent-left {
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+}
+
+/* дясно */
+#opponent-right {
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+}
+
+/* ===== CHAT (ЛЯВО, В СРЕДАТА НА МАСАТА) ===== */
+#chat {
+  position: absolute;
+  left: 20px;
+  top: 260px;              /* ⬅️ ТОВА ГО ВДИГА В ЧЕРНИЯ ПЕРИМЕТЪР */
+  width: 260px;
+  height: 260px;
+  background: rgba(0,0,0,0.65);
+  border-radius: 14px;
+  padding: 10px;
+  z-index: 60;
+}
+
+
+#messages {
+  height: 150px;
+  overflow-y: auto;
+  font-size: 13px;
+}
+
+.chat-input {
+  display: flex;
+  gap: 6px;
+}
+
+#msg {
+  flex: 1;
+  padding: 6px;
+}
+
+#sendBtn {
+  padding: 6px 10px;
+  cursor: pointer;
+}
