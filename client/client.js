@@ -186,19 +186,41 @@ playerId:myId
 function createRoom(){
 
 
-myName=$("#name")
-.value.trim();
+let nameInput =
+document.getElementById("name");
 
 
-if(!myName)
-
-return alert(
-"Въведи име"
-);
+let roomInput =
+document.getElementById("room");
 
 
 
-roomCode=
+if(!nameInput){
+
+alert("Липсва поле name в HTML");
+
+return;
+
+}
+
+
+
+myName =
+nameInput.value.trim();
+
+
+
+if(!myName){
+
+alert("Въведи име");
+
+return;
+
+}
+
+
+
+roomCode =
 
 Math.random()
 .toString(36)
@@ -207,8 +229,12 @@ Math.random()
 
 
 
-$("#room").value=
+if(roomInput){
+
+roomInput.value =
 roomCode;
+
+}
 
 
 
@@ -228,14 +254,35 @@ login();
 function joinRoom(){
 
 
-myName=
-$("#name")
-.value.trim();
+let nameInput =
+document.getElementById("name");
 
 
-roomCode=
-$("#room")
-.value.trim()
+let roomInput =
+document.getElementById("room");
+
+
+
+if(
+!nameInput ||
+!roomInput
+){
+
+alert("Липсва name или room поле");
+
+return;
+
+}
+
+
+
+myName =
+nameInput.value.trim();
+
+
+roomCode =
+roomInput.value
+.trim()
 .toUpperCase();
 
 
@@ -243,11 +290,13 @@ $("#room")
 if(
 !myName ||
 !roomCode
-)
+){
 
-return alert(
-"Попълни име и стая"
-);
+alert("Попълни име и стая");
+
+return;
+
+}
 
 
 
@@ -259,7 +308,6 @@ login();
 
 
 }
-
 
 
 
