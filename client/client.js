@@ -24,43 +24,45 @@ let selectedSolitaire=[];
  LOAD
 ========================== */
 
-window.onload=()=>{
+window.onload = () => {
+
+const createBtn = document.getElementById("createRoomBtn");
+const joinBtn = document.getElementById("joinBtn");
+const sendBtn = document.getElementById("sendBtn");
+const msg = document.getElementById("msg");
 
 
-let createBtn=$("#createRoomBtn");
-let joinBtn=$("#joinBtn");
-let sendBtn=$("#sendBtn");
-let msg=$("#msg");
+if(createBtn){
+createBtn.onclick = createRoom;
+}
 
 
-if(createBtn)
-createBtn.onclick=createRoom;
+if(joinBtn){
+joinBtn.onclick = joinRoom;
+}
 
 
-if(joinBtn)
-joinBtn.onclick=joinRoom;
-
-
-if(sendBtn)
-sendBtn.onclick=sendChat;
+if(sendBtn){
+sendBtn.onclick = sendChat;
+}
 
 
 if(msg){
 
-msg.addEventListener(
-"keydown",
-e=>{
+msg.addEventListener("keydown", e=>{
 
-if(e.key==="Enter")
+if(e.key==="Enter"){
 sendChat();
+}
 
 });
 
 }
 
 
-};
+console.log("CLIENT LOADED OK");
 
+};
 
 /* ==========================
  SHORTCUT
