@@ -1,6 +1,6 @@
-/* ======================
+/* =====================
    GLOBAL
-====================== */
+===================== */
 
 *{
 box-sizing:border-box;
@@ -24,17 +24,22 @@ color:white;
 background:
 radial-gradient(
 circle,
-#23813c 0%,
-#0b3517 75%
+#1e7a36 0%,
+#083515 75%
 );
 
 }
 
 
+.hidden{
+display:none!important;
+}
 
-/* ======================
+
+
+/* =====================
  LOGIN
-====================== */
+===================== */
 
 
 #login{
@@ -51,24 +56,23 @@ align-items:center;
 
 justify-content:center;
 
-gap:14px;
+gap:12px;
 
 background:
 radial-gradient(
 circle,
-#23813c,
-#082d13
+#1e7a36,
+#082b13
 );
 
-z-index:999;
+z-index:9999;
 
 }
 
 
-
 #login h1{
 
-font-size:38px;
+font-size:40px;
 
 }
 
@@ -89,7 +93,6 @@ font-size:15px;
 }
 
 
-
 button{
 
 cursor:pointer;
@@ -98,11 +101,9 @@ border:none;
 
 border-radius:10px;
 
-padding:10px 16px;
+padding:10px 15px;
 
 font-weight:bold;
-
-transition:.15s;
 
 }
 
@@ -118,14 +119,12 @@ transform:scale(1.05);
 
 
 
-/* ======================
+/* =====================
  GAME
-====================== */
+===================== */
 
 
 #game{
-
-display:none;
 
 position:relative;
 
@@ -137,147 +136,79 @@ height:100vh;
 
 
 
-/* ======================
- TOP BAR
-====================== */
 
 
-#top{
 
-position:absolute;
 
-top:15px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-display:flex;
-
-gap:20px;
-
-z-index:20;
-
-}
-
+/* =====================
+ TOP
+===================== */
 
 
 #status,
 #turn{
 
+position:absolute;
+
+top:15px;
+
 background:
 rgba(0,0,0,.65);
 
-padding:10px 20px;
+padding:10px 18px;
 
-border-radius:14px;
-
-font-size:15px;
-
-}
-
-
-
-/* ======================
- LEFT PANEL
-====================== */
-
-
-
-#left-panel{
-
-position:absolute;
-
-left:20px;
-
-top:100px;
-
-width:260px;
+border-radius:15px;
 
 z-index:50;
 
 }
 
 
+#status{
 
-/* PLAYERS */
+left:42%;
+
+}
+
+
+#turn{
+
+left:55%;
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+ PLAYERS
+===================== */
 
 
 #players{
 
+position:absolute;
+
+left:20px;
+
+top:20px;
+
+width:200px;
+
 background:
-rgba(0,0,0,.55);
+rgba(0,0,0,.65);
 
 padding:12px;
 
 border-radius:15px;
 
-margin-bottom:15px;
-
 font-size:14px;
 
-}
-
-
-
-
-/* ======================
- CHAT
-====================== */
-
-
-#chat{
-
-height:300px;
-
-background:
-rgba(0,0,0,.6);
-
-border-radius:15px;
-
-padding:10px;
-
-display:flex;
-
-flex-direction:column;
-
-}
-
-
-
-#messages{
-
-flex:1;
-
-overflow-y:auto;
-
-font-size:14px;
-
-}
-
-
-
-.chat-input{
-
-display:flex;
-
-gap:6px;
-
-}
-
-
-
-#msg{
-
-width:100%;
-
-}
-
-
-
-#sendBtn{
-
-width:45px;
+z-index:60;
 
 }
 
@@ -285,53 +216,60 @@ width:45px;
 
 
 
-/* ======================
+
+
+
+/* =====================
  SCORES
-====================== */
+===================== */
 
 
 #scores{
 
 position:absolute;
 
-right:25px;
+right:20px;
 
-top:100px;
+top:20px;
 
 min-width:170px;
 
 background:
-rgba(0,0,0,.6);
+rgba(0,0,0,.65);
 
 padding:12px;
 
 border-radius:15px;
 
-z-index:50;
-
 font-size:14px;
+
+z-index:60;
 
 }
 
 
 
-/* ======================
- TABLE
-====================== */
 
+
+
+
+
+
+/* =====================
+ TABLE
+===================== */
 
 
 #table{
 
 position:absolute;
 
-left:50%;
-
 top:50%;
+
+left:50%;
 
 transform:
 translate(-50%,-50%);
-
 
 display:flex;
 
@@ -339,7 +277,7 @@ gap:25px;
 
 min-height:150px;
 
-z-index:10;
+z-index:20;
 
 }
 
@@ -349,9 +287,10 @@ z-index:10;
 
 
 
-/* ======================
+
+/* =====================
  CARDS
-====================== */
+===================== */
 
 
 .card img{
@@ -366,7 +305,7 @@ border-radius:8px;
 
 box-shadow:
 0 8px 18px
-rgba(0,0,0,.55);
+rgba(0,0,0,.6);
 
 }
 
@@ -376,7 +315,7 @@ rgba(0,0,0,.55);
 
 position:absolute;
 
-bottom:25px;
+bottom:20px;
 
 left:50%;
 
@@ -387,23 +326,23 @@ display:flex;
 
 gap:7px;
 
-z-index:40;
+z-index:80;
 
 }
 
 
 
-#hand .card img{
-
-transition:.15s;
+#hand img{
 
 cursor:pointer;
 
+transition:.15s;
+
 }
 
 
 
-#hand .card img:hover{
+#hand img:hover{
 
 transform:
 translateY(-18px);
@@ -412,10 +351,15 @@ translateY(-18px);
 
 
 
-/* ======================
- OPPONENTS
-====================== */
 
+
+
+
+
+
+/* =====================
+ OPPONENTS
+===================== */
 
 
 .opponent{
@@ -438,9 +382,29 @@ flex-direction:column;
 
 
 
+.back-card img{
+
+width:65px;
+
+background:white;
+
+padding:3px;
+
+border-radius:7px;
+
+box-shadow:
+0 5px 12px
+rgba(0,0,0,.5);
+
+}
+
+
+
+
+
 #opponent-top{
 
-top:75px;
+top:90px;
 
 left:50%;
 
@@ -453,7 +417,7 @@ translateX(-50%);
 
 #opponent-left{
 
-left:310px;
+left:20px;
 
 top:50%;
 
@@ -466,7 +430,7 @@ translateY(-50%);
 
 #opponent-right{
 
-right:220px;
+right:20px;
 
 top:50%;
 
@@ -477,19 +441,70 @@ translateY(-50%);
 
 
 
-.back-card img{
 
-width:65px;
 
-background:white;
 
-padding:3px;
 
-border-radius:6px;
 
-box-shadow:
-0 5px 12px
-rgba(0,0,0,.5);
+/* =====================
+ CHAT
+===================== */
+
+
+#chat{
+
+position:absolute;
+
+left:20px;
+
+bottom:20px;
+
+width:260px;
+
+height:260px;
+
+background:
+rgba(0,0,0,.65);
+
+padding:10px;
+
+border-radius:15px;
+
+display:flex;
+
+flex-direction:column;
+
+z-index:70;
+
+}
+
+
+
+#messages{
+
+flex:1;
+
+overflow-y:auto;
+
+font-size:14px;
+
+}
+
+
+
+.chat-input{
+
+display:flex;
+
+gap:5px;
+
+}
+
+
+
+#msg{
+
+flex:1;
 
 }
 
@@ -499,29 +514,29 @@ rgba(0,0,0,.5);
 
 
 
-/* ======================
- TRUMPS
-====================== */
 
+
+/* =====================
+ TRUMPS
+===================== */
 
 
 #trumps{
 
 position:absolute;
 
-bottom:140px;
+bottom:130px;
 
 left:50%;
 
 transform:
 translateX(-50%);
 
-
 display:flex;
 
 gap:15px;
 
-z-index:70;
+z-index:100;
 
 }
 
@@ -537,42 +552,15 @@ background:white;
 
 
 
-.hidden{
-
-display:none!important;
-
-}
 
 
 
 
 
 
-/* ======================
- CONNECTION
-====================== */
-
-
-#connection{
-
-position:absolute;
-
-bottom:10px;
-
-right:15px;
-
-font-size:13px;
-
-}
-
-
-
-
-
-
-/* ======================
+/* =====================
  MOBILE
-====================== */
+===================== */
 
 
 @media(max-width:900px){
@@ -587,21 +575,21 @@ width:60px;
 
 .back-card img{
 
-width:45px;
+width:42px;
 
 }
 
 
-#left-panel{
+#chat{
 
 width:200px;
 
 }
 
 
-#scores{
+#players{
 
-right:5px;
+width:160px;
 
 }
 
