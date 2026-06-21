@@ -679,12 +679,30 @@ data.winner.score
 function showGame(){
 
 
-$("#login")
-.style.display="none";
+let login =
+document.getElementById("login");
 
 
-$("#game")
-.style.display="block";
+let game =
+document.getElementById("game");
+
+
+
+if(login){
+
+login.style.display="none";
+
+}
+
+
+if(game){
+
+game.style.display="block";
+
+}
+
+
+console.log("GAME SCREEN OPEN");
 
 
 }
