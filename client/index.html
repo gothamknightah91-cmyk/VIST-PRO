@@ -1,359 +1,106 @@
 <!DOCTYPE html>
 <html lang="bg">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta 
-name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-
-<title>
-♠ Вист Онлайн ♠
-</title>
-
-
-<link 
-rel="stylesheet"
-href="style.css">
-
-
+<title>Вист Онлайн</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
-
 
 <body>
 
-
-
-<!-- =====================
-        LOGIN
-====================== -->
-
-
 <div id="login">
 
+<h1>♠ Вист Онлайн ♠</h1>
 
-<h1>
-♠ Вист Онлайн ♠
-</h1>
+<input id="name" placeholder="Име">
 
-
-<input
-id="name"
-placeholder="Име">
-
-
-<input
-id="room"
-placeholder="Код на стая">
-
-
-
-<div class="buttons">
-
+<input id="room" placeholder="Код">
 
 <button id="createRoomBtn">
-
 Създай стая
-
 </button>
-
-
 
 <button id="joinBtn">
-
 Влез
-
 </button>
 
-
 </div>
 
 
 
-<div id="lobbyStatus">
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-<!-- =====================
-        GAME
-====================== -->
-
-
-<div id="game">
-
-
-
-<!-- TOP INFO -->
-
-
-<div id="top">
-
+<div id="game" style="display:none">
 
 
 <div id="status">
-
-Изчакване...
-
+Статус
 </div>
-
 
 
 <div id="turn">
-
--
-
+Ред
 </div>
-
-
-
-</div>
-
-
-
-
-
-
-
-<!-- LEFT PANEL -->
-
-
-<div id="left-panel">
-
-
-
-<!-- PLAYERS -->
 
 
 <div id="players">
-
-<h3>
-
-Играчите
-
-</h3>
+</div>
 
 
+<div id="scores">
 </div>
 
 
 
+<div id="opponent-top">
+</div>
+
+<div id="opponent-left">
+</div>
+
+<div id="opponent-right">
+</div>
 
 
-<!-- CHAT -->
+
+<div id="table">
+</div>
+
+
+<div id="hand">
+</div>
+
+
+
+<div id="trumps" class="hidden">
+
+<button onclick="chooseTrump('♠')">♠</button>
+<button onclick="chooseTrump('♥')">♥</button>
+<button onclick="chooseTrump('♦')">♦</button>
+<button onclick="chooseTrump('♣')">♣</button>
+
+</div>
+
+
 
 
 <div id="chat">
 
-
-
 <div id="messages">
-
 </div>
 
-
-
-<div class="chat-input">
-
-
-
-<input
-id="msg"
-placeholder="Напиши...">
-
-
+<input id="msg">
 
 <button id="sendBtn">
-
-➤
-
+Изпрати
 </button>
 
+</div>
 
 
 </div>
 
 
 
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- SCORE -->
-
-
-<div id="scores">
-
-</div>
-
-
-
-
-
-
-
-
-<!-- OPPONENTS -->
-
-
-<div
-id="opponent-top"
-class="opponent">
-
-</div>
-
-
-
-
-<div
-id="opponent-left"
-class="opponent vertical">
-
-</div>
-
-
-
-
-
-<div
-id="opponent-right"
-class="opponent vertical">
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- TABLE -->
-
-
-<div id="table">
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- PLAYER HAND -->
-
-
-<div id="hand">
-
-</div>
-
-
-
-
-
-
-
-
-
-
-<!-- TRUMP SELECT -->
-
-
-<div 
-id="trumps"
-class="hidden">
-
-
-
-<button onclick="chooseTrump('♠')">
-
-♠
-
-</button>
-
-
-
-<button onclick="chooseTrump('♥')">
-
-♥
-
-</button>
-
-
-
-<button onclick="chooseTrump('♦')">
-
-♦
-
-</button>
-
-
-
-<button onclick="chooseTrump('♣')">
-
-♣
-
-</button>
-
-
-
-</div>
-
-
-
-
-
-
-<!-- CONNECTION -->
-
-
-<div id="connection">
-
-</div>
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-<script src="client.js"></script>
-
+<script src="client.js?v=10"></script>
 
 </body>
-
 </html>
