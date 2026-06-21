@@ -26,17 +26,38 @@ let selectedSolitaire=[];
 
 window.onload=()=>{
 
-$("#createRoomBtn").onclick=createRoom;
-$("#joinBtn").onclick=joinRoom;
 
-$("#sendBtn").onclick=sendChat;
+let createBtn=$("#createRoomBtn");
+let joinBtn=$("#joinBtn");
+let sendBtn=$("#sendBtn");
+let msg=$("#msg");
 
-$("#msg").addEventListener(
+
+if(createBtn)
+createBtn.onclick=createRoom;
+
+
+if(joinBtn)
+joinBtn.onclick=joinRoom;
+
+
+if(sendBtn)
+sendBtn.onclick=sendChat;
+
+
+if(msg){
+
+msg.addEventListener(
 "keydown",
 e=>{
+
 if(e.key==="Enter")
 sendChat();
+
 });
+
+}
+
 
 };
 
