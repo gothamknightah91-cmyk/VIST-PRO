@@ -83,7 +83,7 @@ function connect(callback){
 
 
 ws=new WebSocket(
-"wss://card-game-server-y42.onrender.com"
+location.origin.replace("https","wss")
 );
 
 
