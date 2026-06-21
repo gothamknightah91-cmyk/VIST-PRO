@@ -1,106 +1,286 @@
 <!DOCTYPE html>
 <html lang="bg">
+
 <head>
+
 <meta charset="UTF-8">
-<title>Вист Онлайн</title>
-<link rel="stylesheet" href="style.css">
+
+<meta 
+name="viewport" 
+content="width=device-width, initial-scale=1.0">
+
+
+<title>
+♠ Вист Онлайн ♠
+</title>
+
+
+<link 
+rel="stylesheet" 
+href="style.css">
+
 </head>
+
 
 <body>
 
+
+
+<!-- ======================
+        LOGIN
+====================== -->
+
+
 <div id="login">
 
-<h1>♠ Вист Онлайн ♠</h1>
 
-<input id="name" placeholder="Име">
+<h1>
+♠ Вист Онлайн ♠
+</h1>
 
-<input id="room" placeholder="Код">
+
+<input
+id="name"
+placeholder="Име">
+
+
+<input
+id="room"
+placeholder="Код на стая">
+
 
 <button id="createRoomBtn">
 Създай стая
 </button>
 
+
 <button id="joinBtn">
 Влез
 </button>
 
+
+<div id="lobbyStatus">
+</div>
+
+
 </div>
 
 
 
-<div id="game" style="display:none">
+
+
+
+<!-- ======================
+          GAME
+====================== -->
+
+
+<div id="game" class="hidden">
+
+
+
+<!-- TOP INFO -->
+
+
+<div id="top-bar">
 
 
 <div id="status">
-Статус
+Изчакване...
 </div>
 
 
 <div id="turn">
-Ред
+-
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- PLAYERS -->
 
 
 <div id="players">
+
+<h3>
+Играчите
+</h3>
+
 </div>
+
+
+
+
+
+
+
+<!-- SCORE -->
 
 
 <div id="scores">
+
 </div>
 
 
 
-<div id="opponent-top">
+
+
+
+
+<!-- OPPONENTS -->
+
+
+<div 
+id="opponent-top" 
+class="opponent horizontal">
+
 </div>
 
-<div id="opponent-left">
+
+
+<div 
+id="opponent-left" 
+class="opponent vertical">
+
 </div>
 
-<div id="opponent-right">
+
+
+
+<div 
+id="opponent-right" 
+class="opponent vertical">
+
 </div>
 
+
+
+
+
+
+
+
+<!-- TABLE -->
 
 
 <div id="table">
+
 </div>
+
+
+
+
+
+
+
+
+<!-- MY CARDS -->
 
 
 <div id="hand">
-</div>
-
-
-
-<div id="trumps" class="hidden">
-
-<button onclick="chooseTrump('♠')">♠</button>
-<button onclick="chooseTrump('♥')">♥</button>
-<button onclick="chooseTrump('♦')">♦</button>
-<button onclick="chooseTrump('♣')">♣</button>
 
 </div>
 
 
+
+
+
+
+
+
+
+<!-- TRUMP -->
+
+
+<div 
+id="trumps" 
+class="hidden">
+
+
+<button onclick="chooseTrump('♠')">
+♠
+</button>
+
+
+<button onclick="chooseTrump('♥')">
+♥
+</button>
+
+
+<button onclick="chooseTrump('♦')">
+♦
+</button>
+
+
+<button onclick="chooseTrump('♣')">
+♣
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- CHAT -->
 
 
 <div id="chat">
 
+
 <div id="messages">
+
 </div>
 
-<input id="msg">
+
+<div class="chat-input">
+
+
+<input 
+id="msg" 
+placeholder="Напиши...">
+
 
 <button id="sendBtn">
-Изпрати
+
+➤
+
 </button>
 
-</div>
-
 
 </div>
 
 
+</div>
 
-<script src="client.js?v=10"></script>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<script src="client.js?v=100"></script>
+
 
 </body>
+
 </html>
