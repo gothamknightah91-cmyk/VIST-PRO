@@ -1,110 +1,123 @@
-/* ==========================
-      VIST PRO CLIENT
-========================== */
+/* =====================
+   VIST PRO CLIENT FINAL
+===================== */
 
 let ws=null;
 
 let myName="";
-let roomCode="";
+let currentRoom="";
+let myId=localStorage.getItem("vist_id");
+
 let myHand=[];
-
-let myId =
-localStorage.getItem("vist_player_id");
-
 let currentTurn="";
-let currentPhase=1;
 
-let connected=false;
-
-let solitaireMode=false;
-let selectedSolitaire=[];
+let reconnectTimer=null;
 
 
-/* ==========================
+/* =====================
+ HELPERS
+===================== */
+
+const $ = id => document.getElementById(id);
+
+
+function safe(id,fn){
+
+let el=$(id);
+
+if(el) fn(el);
+
+}
+
+
+/* =====================
  LOAD
-========================== */
+===================== */
 
-window.onload = () => {
-
-const createBtn = document.getElementById("createRoomBtn");
-const joinBtn = document.getElementById("joinBtn");
-const sendBtn = document.getElementById("sendBtn");
-const msg = document.getElementById("msg");
+window.onload=()=>{
 
 
-if(createBtn){
-createBtn.onclick = createRoom;
-}
+safe("createRoomBtn",
+e=>e.onclick=createRoom
+);
 
 
-if(joinBtn){
-joinBtn.onclick = joinRoom;
-}
+safe("joinBtn",
+e=>e.onclick=joinRoom
+);
 
 
-if(sendBtn){
-sendBtn.onclick = sendChat;
-}
+safe("sendBtn",
+e=>e.onclick=sendChat
+);
 
 
-if(msg){
+safe("msg",e=>{
 
-msg.addEventListener("keydown", e=>{
+e.addEventListener(
+"keydown",
+x=>{
 
-if(e.key==="Enter"){
+if(x.key==="Enter")
 sendChat();
-}
 
 });
 
-}
+});
 
-
-console.log("CLIENT LOADED OK");
 
 };
 
-/* ==========================
- SHORTCUT
-========================== */
-
-function $(id){
-return document.getElementById(id);
-}
 
 
 
-/* ==========================
+
+/* =====================
  SOCKET
-========================== */
+===================== */
 
-
-function connect(callback){
+function connect(done){
 
 
 ws=new WebSocket(
-location.origin.replace("https","wss")
+
+location.origin.replace(
+"http",
+"ws"
+)
+
 );
+
 
 
 ws.onopen=()=>{
 
-connected=true;
 
-if(callback)
-callback();
+if(done)
+done();
+
 
 };
 
 
+
 ws.onclose=()=>{
 
-connected=false;
+
+clearTimeout(
+reconnectTimer
+);
 
 
+
+reconnectTimer=
 setTimeout(()=>{
 
-if(myName && roomCode){
+
+if(
+myName &&
+currentRoom
+){
 
 connect(()=>{
 
@@ -114,21 +127,15 @@ login();
 
 }
 
+
 },2000);
 
-};
-
-
-
-ws.onerror=()=>{
-
-console.log("connection error");
 
 };
 
 
 
-ws.onmessage=(e)=>{
+ws.onmessage=e=>{
 
 
 let data;
@@ -136,7 +143,9 @@ let data;
 
 try{
 
-data=JSON.parse(e.data);
+data=JSON.parse(
+e.data
+);
 
 }catch{
 
@@ -151,34 +160,44 @@ handle(data);
 };
 
 
+
 }
 
 
 
 
 
-/* ==========================
+
+
+/* =====================
  LOGIN
-========================== */
+===================== */
 
 
 function login(){
 
 
-ws.send(JSON.stringify({
+ws.send(
+
+JSON.stringify({
 
 type:"JOIN",
 
 name:myName,
 
-room:roomCode,
+room:currentRoom,
 
 playerId:myId
 
-}));
+})
+
+);
 
 
 }
+
+
+
 
 
 
@@ -186,41 +205,28 @@ playerId:myId
 function createRoom(){
 
 
-let nameInput =
-document.getElementById("name");
+let n=$("name");
+
+let r=$("room");
 
 
-let roomInput =
-document.getElementById("room");
-
-
-
-if(!nameInput){
-
-alert("Липсва поле name в HTML");
-
-return;
-
-}
+if(!n)return;
 
 
 
-myName =
-nameInput.value.trim();
+myName=
+n.value.trim();
+
+
+if(!myName)
+
+return alert(
+"Въведи име"
+);
 
 
 
-if(!myName){
-
-alert("Въведи име");
-
-return;
-
-}
-
-
-
-roomCode =
+currentRoom=
 
 Math.random()
 .toString(36)
@@ -229,12 +235,8 @@ Math.random()
 
 
 
-if(roomInput){
-
-roomInput.value =
-roomCode;
-
-}
+if(r)
+r.value=currentRoom;
 
 
 
@@ -246,6 +248,8 @@ login();
 
 
 }
+
+
 
 
 
@@ -254,49 +258,35 @@ login();
 function joinRoom(){
 
 
-let nameInput =
-document.getElementById("name");
+let n=$("name");
 
-
-let roomInput =
-document.getElementById("room");
+let r=$("room");
 
 
 
-if(
-!nameInput ||
-!roomInput
-){
-
-alert("Липсва name или room поле");
-
-return;
-
-}
+if(!n || !r)return;
 
 
 
-myName =
-nameInput.value.trim();
+myName=
+n.value.trim();
 
 
-roomCode =
-roomInput.value
-.trim()
+currentRoom=
+r.value.trim()
 .toUpperCase();
+
 
 
 
 if(
 !myName ||
-!roomCode
-){
+!currentRoom
+)
 
-alert("Попълни име и стая");
-
-return;
-
-}
+return alert(
+"Попълни данните"
+);
 
 
 
@@ -314,9 +304,10 @@ login();
 
 
 
-/* ==========================
+
+/* =====================
  SERVER EVENTS
-========================== */
+===================== */
 
 
 function handle(data){
@@ -324,7 +315,6 @@ function handle(data){
 
 
 /* ID */
-
 
 if(
 
@@ -342,26 +332,21 @@ myId=data.id;
 
 localStorage.setItem(
 
-"vist_player_id",
+"vist_id",
 
 myId
 
 );
+
 
 }
 
 
 
 
-
-
 /* STATE */
 
-
 if(data.type==="STATE"){
-
-
-currentPhase=data.phase;
 
 
 showGame();
@@ -377,7 +362,6 @@ data.spectators
 );
 
 
-
 drawScores(
 data.scores
 );
@@ -389,9 +373,7 @@ data.scores
 
 
 
-
 /* HAND */
-
 
 if(data.type==="HAND"){
 
@@ -399,13 +381,29 @@ if(data.type==="HAND"){
 showGame();
 
 
-myHand=data.cards || [];
+myHand=
+data.cards || [];
 
 
 drawHand();
 
 
-drawOpponents();
+drawBacks(
+"opponent-top",
+13
+);
+
+
+drawBacks(
+"opponent-left",
+13
+);
+
+
+drawBacks(
+"opponent-right",
+13
+);
 
 
 }
@@ -418,32 +416,18 @@ drawOpponents();
 
 /* GAME */
 
-
 if(data.type==="GAME"){
 
 
-$("#status").innerText=
-data.name;
+safe(
+"status",
 
+e=>e.innerText=data.name
 
-
-if(
-data.name==="Пасианс"
-){
-
-startSolitaire();
-
-}
-
-else{
-
-solitaireMode=false;
-
-}
+);
 
 
 }
-
 
 
 
@@ -452,16 +436,27 @@ solitaireMode=false;
 
 /* TURN */
 
-
 if(data.type==="TURN"){
 
 
 currentTurn=data.player;
 
 
-$("#turn").innerText=
+safe(
+"turn",
 
-"На ход: "+data.player;
+e=>{
+
+e.innerText=
+
+"На ход е: "
+
++
+
+data.player;
+
+
+});
 
 
 }
@@ -478,7 +473,8 @@ $("#turn").innerText=
 if(data.type==="PLAYED"){
 
 
-putCard(
+
+addToTable(
 data.card
 );
 
@@ -505,9 +501,7 @@ drawHand();
 
 else{
 
-
-removeBack();
-
+removeOpponentCard();
 
 }
 
@@ -521,7 +515,7 @@ removeBack();
 
 
 
-/* CLEAR TABLE */
+/* CLEAR */
 
 
 if(data.type==="CLEAR"){
@@ -530,11 +524,15 @@ if(data.type==="CLEAR"){
 setTimeout(()=>{
 
 
-$("#table")
-.innerHTML="";
+safe(
+"table",
+
+e=>e.innerHTML=""
+
+);
 
 
-},800);
+},700);
 
 
 }
@@ -544,16 +542,14 @@ $("#table")
 
 
 
-/* SCORES */
+/* SCORE */
 
 
 if(data.type==="SCORES"){
 
 
 drawScores(
-
 data.scores
-
 );
 
 
@@ -565,32 +561,74 @@ data.scores
 
 
 
+/* CHAT */
+
+
+if(data.type==="CHAT"){
+
+
+safe(
+"messages",
+
+box=>{
+
+
+box.innerHTML+=
+
+`
+
+<div>
+
+<b>${data.name}</b>:
+
+${data.text}
+
+</div>
+
+`;
+
+
+
+box.scrollTop=
+box.scrollHeight;
+
+
+});
+
+
+}
+
+
+
+
 
 /* TRUMP */
 
 
 if(
-
 data.type==="TRUMP_CHOOSE"
-
 ){
 
 
-
 if(
-
 data.player===myName
-
 )
 
-$("#trumps")
+$("trumps")
 .classList
 .remove("hidden");
 
 
-else
+}
 
-$("#trumps")
+
+
+if(
+data.type==="TRUMP_SET"
+){
+
+
+$("trumps")
 .classList
 .add("hidden");
 
@@ -602,39 +640,11 @@ $("#trumps")
 
 
 
-
-/* SOLITAIRE MOVE */
-
-
-if(
-
-data.type==="SOLITAIRE_MOVE"
-
-){
-
-
-drawSolitaire(
-
-data.cards
-
-);
-
-
-}
-
-
-
-
-
-
-
-/* GAME OVER */
+/* END */
 
 
 if(
-
 data.type==="GAME_OVER"
-
 ){
 
 
@@ -646,13 +656,45 @@ alert(
 
 data.winner.winner
 
-+
+);
 
-"\nТочки: "
 
-+
+}
 
-data.winner.score
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/* =====================
+ UI
+===================== */
+
+
+function showGame(){
+
+
+safe(
+"login",
+
+e=>e.style.display="none"
+
+);
+
+
+
+safe(
+"game",
+
+e=>e.style.display="block"
 
 );
 
@@ -660,61 +702,20 @@ data.winner.score
 }
 
 
-}
 
 
 
 
 
+function drawPlayers(players=[],spectators=0){
 
 
 
-
-/* ==========================
- UI
-========================== */
+let box=$("players");
 
 
-
-function showGame(){
-
-
-let login =
-document.getElementById("login");
-
-
-let game =
-document.getElementById("game");
-
-
-
-if(login){
-
-login.style.display="none";
-
-}
-
-
-if(game){
-
-game.style.display="block";
-
-}
-
-
-console.log("GAME SCREEN OPEN");
-
-
-}
-
-
-
-
-
-function drawPlayers(
-players,
-spectators
-){
+if(!box)
+return;
 
 
 
@@ -732,7 +733,7 @@ html+=`
 
 ${p.online?"🟢":"🔴"}
 
-${escapeHtml(p.name)}
+${p.name}
 
 </div>
 
@@ -747,14 +748,13 @@ html+=`
 
 <hr>
 
-👁 Зрители:
-${spectators}
+👁 ${spectators}
 
 `;
 
 
 
-$("#players").innerHTML=html;
+box.innerHTML=html;
 
 
 }
@@ -765,55 +765,56 @@ $("#players").innerHTML=html;
 
 
 
-function drawScores(scores){
+function drawScores(scores={}){
 
 
-let html="<h3>Точки</h3>";
+safe(
+"scores",
+
+box=>{
+
+
+let h="<h3>Точки</h3>";
 
 
 
-for(let p in scores){
+for(let p in scores)
 
-
-html+=`
+h+=`
 
 <div>
 
-${escapeHtml(p)}
-:
-${scores[p]}
+${p}: ${scores[p]}
 
 </div>
 
 `;
 
+
+
+box.innerHTML=h;
+
+
+});
+
+
 }
 
 
 
-$("#scores")
-.innerHTML=html;
-
-
-}
 
 
 
 
-
-
-
-
-/* ==========================
+/* =====================
  CARDS
-========================== */
+===================== */
 
 
+function cardToFile(card){
 
-function cardFile(card){
 
-
-const map={
+let map={
 
 "♠":"S",
 
@@ -853,68 +854,49 @@ map[card[0]]
 
 
 
+
 function drawHand(){
 
 
-let box=$("#hand");
+let hand=$("hand");
 
 
-box.innerHTML="";
+if(!hand)return;
+
+
+
+hand.innerHTML="";
 
 
 
 myHand.forEach(card=>{
 
 
-let div=
-document.createElement("div");
+let d=
+document.createElement(
+"div"
+);
 
 
-div.className="card";
+d.className="card";
 
 
-div.innerHTML=
+d.innerHTML=
 
 `
 
-<img src="${cardFile(card)}">
+<img src="${cardToFile(card)}">
 
 `;
 
 
 
-
-div.onclick=()=>{
-
-
-
-if(solitaireMode){
-
-
-selectSolitaire(
-card,
-div
-);
-
-
-return;
-
-
-}
-
-
-
+d.onclick=()=>{
 
 
 if(
-
-currentTurn!==myName
-
+currentTurn===myName
 )
-
-return;
-
-
 
 play(card);
 
@@ -923,7 +905,7 @@ play(card);
 
 
 
-box.appendChild(div);
+hand.appendChild(d);
 
 
 });
@@ -940,17 +922,17 @@ box.appendChild(div);
 function play(card){
 
 
-if(!connected)return;
+ws.send(
 
-
-
-ws.send(JSON.stringify({
+JSON.stringify({
 
 type:"PLAY",
 
 card
 
-}));
+})
+
+);
 
 
 }
@@ -961,21 +943,27 @@ card
 
 
 
+function addToTable(card){
 
 
-function putCard(card){
+safe(
+"table",
+
+t=>{
 
 
-$("#table").innerHTML+=`
+t.innerHTML+=`
 
 <div class="card">
 
-<img src="${cardFile(card)}">
+<img src="${cardToFile(card)}">
 
 </div>
 
 `;
 
+});
+
 
 }
 
@@ -987,25 +975,8 @@ $("#table").innerHTML+=`
 
 
 
-/* ==========================
- BACK CARDS
-========================== */
 
-
-function drawOpponents(){
-
-
-[
-
-"opponent-top",
-
-"opponent-left",
-
-"opponent-right"
-
-]
-
-.forEach(id=>{
+function drawBacks(id,count){
 
 
 let el=$(id);
@@ -1018,13 +989,12 @@ el.innerHTML="";
 
 
 for(
-let i=0;
-i<13;
-i++
+let i=0;i<count;i++
 )
 
+el.innerHTML+=
 
-el.innerHTML+=`
+`
 
 <div class="back-card">
 
@@ -1035,9 +1005,6 @@ el.innerHTML+=`
 `;
 
 
-});
-
-
 }
 
 
@@ -1045,231 +1012,30 @@ el.innerHTML+=`
 
 
 
-function removeBack(){
+function removeOpponentCard(){
 
 
-for(
-let id of
 [
 "opponent-top",
 "opponent-left",
 "opponent-right"
-]
-){
+
+].some(id=>{
 
 
-let el=$(id);
+let e=$(id);
 
 
 if(
-el &&
-el.children.length
+e &&
+e.children.length
 ){
 
-el.removeChild(
-el.lastChild
-);
+e.lastChild.remove();
 
-break;
+return true;
 
 }
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-
-
-/* ==========================
- TRUMP
-========================== */
-
-
-function chooseTrump(suit){
-
-
-ws.send(JSON.stringify({
-
-type:"TRUMP",
-
-suit
-
-}));
-
-
-
-$("#trumps")
-.classList
-.add("hidden");
-
-
-}
-
-
-
-
-
-
-
-
-
-
-/* ==========================
- SOLITAIRE
-========================== */
-
-
-function startSolitaire(){
-
-
-solitaireMode=true;
-
-
-selectedSolitaire=[];
-
-
-
-$("#table").innerHTML=
-
-`
-
-<div id="solitaire-board">
-
-<h2>Пасианс</h2>
-
-<div id="solitaire-cards"></div>
-
-<button onclick="sendSolitaire()">
-
-Постави
-
-</button>
-
-</div>
-
-`;
-
-
-}
-
-
-
-
-
-
-function selectSolitaire(card,el){
-
-
-if(
-selectedSolitaire.includes(card)
-){
-
-
-selectedSolitaire=
-
-selectedSolitaire.filter(
-
-c=>c!==card
-
-);
-
-
-el.style.transform="";
-
-
-}
-
-else{
-
-
-selectedSolitaire.push(card);
-
-
-el.style.transform=
-
-"translateY(-25px)";
-
-
-}
-
-
-}
-
-
-
-
-
-
-function sendSolitaire(){
-
-
-
-if(
-
-selectedSolitaire.length===0
-
-)
-
-return;
-
-
-
-ws.send(JSON.stringify({
-
-type:"SOLITAIRE",
-
-cards:selectedSolitaire
-
-}));
-
-
-
-
-selectedSolitaire=[];
-
-
-}
-
-
-
-
-
-
-
-function drawSolitaire(cards){
-
-
-
-let box=
-
-$("#solitaire-cards");
-
-
-
-if(!box)return;
-
-
-
-cards.forEach(c=>{
-
-
-box.innerHTML+=`
-
-<div class="card">
-
-<img src="${cardFile(c)}">
-
-</div>
-
-`;
 
 
 });
@@ -1284,20 +1050,23 @@ box.innerHTML+=`
 
 
 
-
-/* ==========================
+/* =====================
  CHAT
-========================== */
+===================== */
 
 
 function sendChat(){
 
 
-let text=
+let m=$("msg");
 
-$("#msg")
-.value
-.trim();
+
+if(!m)return;
+
+
+
+let text=
+m.value.trim();
 
 
 
@@ -1305,7 +1074,9 @@ if(!text)return;
 
 
 
-ws.send(JSON.stringify({
+ws.send(
+
+JSON.stringify({
 
 type:"CHAT",
 
@@ -1313,11 +1084,13 @@ name:myName,
 
 text
 
-}));
+})
+
+);
 
 
 
-$("#msg").value="";
+m.value="";
 
 
 }
@@ -1328,23 +1101,25 @@ $("#msg").value="";
 
 
 
+/* =====================
+ TRUMP
+===================== */
 
 
-/* ==========================
- SECURITY
-========================== */
+function chooseTrump(suit){
 
 
-function escapeHtml(t){
+ws.send(
 
+JSON.stringify({
 
-return String(t)
+type:"TRUMP",
 
-.replaceAll("&","&amp;")
+suit
 
-.replaceAll("<","&lt;")
+})
 
-.replaceAll(">","&gt;");
+);
 
 
 }
